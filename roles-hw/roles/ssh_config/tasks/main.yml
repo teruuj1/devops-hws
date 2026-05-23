@@ -1,0 +1,16 @@
+---
+- name: Отключаем парольную аутентификацию
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+  notify: Restart SSH
+
+- name: Создаём директорию в /opt для каждого пользователя
+  file:
+    path: "/opt/{{ item.name }}_workdir"
+    state: directory
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: '0770'
+  loop: "{{ users_list }}"

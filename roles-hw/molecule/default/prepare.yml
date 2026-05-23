@@ -1,0 +1,25 @@
+---
+- name: Prepare
+  hosts: all
+  become: yes
+  tasks:
+    - name: Обновляем кэш пакетов
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Устанавливаем нужные пакеты
+      apt:
+        name:
+          - sudo
+          - openssh-server
+          - acl
+          - python3
+          - python3-apt
+        state: present
+
+    - name: Включаем сервис ssh
+      service:
+        name: ssh
+        state: started
+        enabled: yes

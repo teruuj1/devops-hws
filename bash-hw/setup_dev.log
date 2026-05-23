@@ -1,0 +1,6 @@
+Путь не указан. Введите базовую директорию для workdir : 
+Супер! Группа dev создана
+Права sudo без пароля выданы группе dev
+Обработка пользователя conchik
+Директория tmp/test/conchik_workdir создана и настроена
+Лог сохранён в /home/conchik/devops-hw/bash-hw/setup_dev.log

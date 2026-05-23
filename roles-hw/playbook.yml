@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+    - vars/users.yml
+  roles:
+    - user_setup
+    - ssh_config

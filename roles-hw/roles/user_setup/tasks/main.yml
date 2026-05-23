@@ -1,0 +1,16 @@
+---
+- name: Создаём пользователей из vars
+  user:
+    name: "{{ item.name }}"
+    groups: sudo
+    append: yes
+    create_home: yes
+    shell: /bin/bash
+  loop: "{{ users_list }}"
+
+- name: Добавляем SSH-ключи
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.ssh_key }}"
+    state: present
+  loop: "{{ users_list }}"

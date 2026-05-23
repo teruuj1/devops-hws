@@ -1,0 +1,51 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    new_user: devuser
+    ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+  tasks:
+    - name: Создаём пользователя
+      user:
+        name: "{{ new_user }}"
+        groups: sudo
+        append: yes
+        create_home: yes
+        shell: /bin/bash
+
+    - name: Настраиваем sudo без пароля
+      lineinfile:
+        path: /etc/sudoers.d/{{ new_user }}
+        line: "{{ new_user }} ALL=(ALL) NOPASSWD:ALL"
+        validate: 'visudo -cf %s'
+        create: yes
+        mode: '0440'
+
+    - name: Добавляем SSH-ключ
+      authorized_key:
+        user: "{{ new_user }}"
+        key: "{{ ssh_pub_key }}"
+        state: present
+
+    - name: Отключаем вход по паролю в SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+      notify: Restart SSH
+
+    - name: Создаём директорию в /opt
+      file:
+        path: "/opt/{{ new_user }}_workdir"
+        state: directory
+        owner: "{{ new_user }}"
+        group: "{{ new_user }}"
+        mode: '0770'
+
+  handlers:
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted

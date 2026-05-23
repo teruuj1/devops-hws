@@ -1,0 +1,6 @@
+---
+users_list:
+  - name: mol_user1
+    ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIDRtjTsoi8jMoIi/QFu0HwUKbsWQB3SsNKQDPp/3V8P8jU1Qr9uejSsUr4t9E4cEFp1VYBd+aWhUwmlCM/xVkwAzYzWj4OsPxzFANb6nNST5CkaXMhdWHY6gzo7sn1lLk7i0YZ2PXHBpIl6pwWrWUCBRtriiA/TtAp19h18OV/0kC8PrB3HPDA5EMEzzlxzWNYh6ag1BA/Duv0ZCZvVqffK1TE6pYVu8nqdZ2gqPuMo085FrIlpQQc451pOOyy3RCaJqDj0kWM37V60mrQLZaU/isVyadwi7QsISkqWOagY+85p4pB6fkOoV1VxEQYOi/mP6iLbgIRUX12N15XqrGUsutNn/a+KD70ecwJXXdHVWDLGmdmsPlKvG3x+MG2QIHTxX4yLGgKamPxc5k9G9FKqJDoFtRr7n1F8j/IG3+U8wBqDutlWato1aXR5ad8NT4+E4nhhiQ0cBBwotj4yNT+vgZdOofrT3UQSN5SwuXRQ9N40IJ12r2Z4Zwuu6e+p1QbjfwQkUE7DOwD8oyTkNMNmhxlBKVF6DfTnlMQMjn0YPVsuMCSA70tUzcIrqdhifAmFFmgElOaukqozCRZJkGIpxQZb/EozgzQGJGhCLMHP72ROC9zcABWNlgsrdSANms0JRCaM+lKiEozsQ6YwmVqe656XQo0xlM4ZbNy/8s1w== conchik@conchik"
+  - name: mol_user2
+    ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

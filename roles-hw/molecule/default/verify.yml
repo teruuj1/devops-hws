@@ -1,0 +1,31 @@
+---
+- name: Verify
+  hosts: all
+  become: yes
+  vars_files:
+    - ../../vars/users.yml
+  tasks:
+    - name: Check mol_user1 exists
+      command: grep "^mol_user1:" /etc/passwd
+      changed_when: false
+
+    - name: Check mol_user2 exists
+      command: grep "^mol_user2:" /etc/passwd
+      changed_when: false
+
+    - name: Check /opt/mol_user1_workdir exists
+      stat:
+        path: /opt/mol_user1_workdir
+      register: dir1
+
+    - name: Check /opt/mol_user2_workdir exists
+      stat:
+        path: /opt/mol_user2_workdir
+      register: dir2
+
+    - name: Assert directories exist
+      assert:
+        that:
+          - dir1.stat.exists
+          - dir2.stat.exists
+        fail_msg: "One of /opt/*_workdir directories is missing"

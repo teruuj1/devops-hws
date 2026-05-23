@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  become: yes
+  vars_files:
+    - ../../vars/users.yml
+  roles:
+    - ../../roles/user_setup
+    - ../../roles/ssh_config
